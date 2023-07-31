@@ -1,0 +1,35 @@
+{% extends "index.html" %} 
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+
+    {% comment %} İNCELEME SAYFA {% endcomment %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-4">
+                <img src="{{product.image.url}}" alt="">
+            </div>
+
+            <div class="col-7">
+                <h2>{{product.name}}</h2>
+                <p>{{product.description|safe|slice:"100"}}</p>
+                <p>Fiyat = {{product.price}}$</p>
+                <a href="{% url 'index' %}" class="btn btn-danger mt-3 ">Kurslar'a Git</a>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+{% comment %} 
+
+  EXTEND => block dısındaki kodları hangi sayfadan alcak onu getirmeyi sağlar
+  BLOCK => block içindekiler sayfalarda değişen kısımlardır
+
+ {% endcomment %}

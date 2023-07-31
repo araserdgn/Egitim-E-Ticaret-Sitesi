@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% load static %} 
+{% load humanize %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row basket">
+            {% for urun in products  %}
+                <div class="col-12 position-relative border border-info rounded">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="basketId" value="{{urun.id}}">
+                        <input type="submit" value="" name="sil" class="btn-close position-absolute top-0 end-0 mt-3 me-3">
+                    </form>
+                    <div class="row mt-3 p-2">
+                        <div class="col-4">
+                            <img src="{{urun.product.image.url}}" alt="" width="50%">
+                        </div>
+                        <div class="col-8">
+                            <h3><b>Eğitim Adı:</b> {{urun.product.name}}</h3>
+                            <p>Eğitim Ücreti: {{urun.product.price}}</p>
+                            <p>Kurs Adet: {{urun.adet}}</p>
+                            <p>Ödenecek Tutar : {{urun.total|intcomma}}$</p>
+
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="basketId" value="{{urun.id}}">
+                                <input type="number" name="adet" value="{{urun.adet}}" class="form-control">
+                                <input type="submit" value="Update" name="update" class="btn btn-danger mt-3">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <h4 class="my-5">Toplam tutar : {{toplam|intcomma}}$</h4>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" name="ode" value="Ödeme Yap" class="btn btn-success">
+        </form>
+    </div>
+{% endblock content %}  

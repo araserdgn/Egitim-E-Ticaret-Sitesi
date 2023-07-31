@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+    <div class="container mt-5">
+        <form action="" id="register_form" method ="POST" class="w-50 m-auto border p-4">
+            {% csrf_token %}
+            {% comment %} POST kullanırsan mutlaka CSRF güvbenliğini getirmek zorundasn, BİLGİLERİ ŞİFRELEMEYE YARAR {% endcomment %}
+            {{form.as_p}} 
+            {% comment %}! FORM BİZE DJANGODA HAZIR GELDİ {% endcomment %}
+            <input type="submit" value="Kayıt Ol" class="btn btn-danger mt-2">
+        </form>
+    </div>
+{% endblock content %}

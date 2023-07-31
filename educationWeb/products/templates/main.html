@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% load static  %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-3 mt-4">
+                <h2 class="card-title">{{main}}</h2>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    {% for malzeme in malzemeler %}
+                        <div class="col-4">
+                            <div class="card">
+                                <img src="{{malzeme.image.url}}" width="250" height="250" class="card-img-top" alt="{{malzeme.name}}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{malzeme.name}}</h5>
+                                    <p class="card-text">{{malzeme.category}}</p>
+                                    <p class="card-text">{{malzeme.description|safe|slice:"100"}}</p>
+                                    <p class="card-text">Ürün fiyatı: {{malzeme.price}}$</p>
+                                    <a href="{% url 'detail' malzeme.id %}" class="btn btn-primary">Kurs İçeriğine Bak</a>
+                                    <form action="" method='POST'>
+                                        {% csrf_token %}
+                                        {% comment %} HİDDEN BİZE SEPET EKLEME KONUSUNDA YARDI MEDER {% endcomment %}
+                                        <input type="hidden" name="urunId" value="{{urun.id}}">
+                                        <input type="number" name="adet" value="1" class="form-control mt-2">
+                                        <input type="submit" value="Sepete Ekle" class="btn btn-danger mt-2">
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

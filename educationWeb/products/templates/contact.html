@@ -1,0 +1,61 @@
+
+
+{% load static %} 
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}" />
+{% endblock css_files %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+  crossorigin="anonymous"
+/>
+
+{% include "includes/_navbar.html" %}
+
+<section id="contact">
+  <div class="container">
+    <h1 class="title">İletişim</h1>
+    <div class="contact-area">
+      <div class="cont-left">
+        <div class="cont-top">
+          <div class="cont-element">
+            <i class="far fa-address-card"></i>
+            <a href="#">Ankara / Turkey</a>
+          </div>
+          <div class="cont-element">
+            <i class="far fa-envelope"></i>
+            <a href="mailto:arikan199926r@gmail.com">iso@gmail.com</a>
+          </div>
+          <div class="cont-element">
+            <i class="fas fa-phone-alt"></i>
+            <a href="tel:+5076656102">507-***-****</a>
+          </div>
+        </div>
+        <div class="cont-bottom">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/ismail-erdogan-37b918207/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="cont-right">
+        <form action="">
+          <input type="text" name="text" id="text" placeholder="Full Name" />
+          <input type="email" name="email" id="email" placeholder="Email" />
+          <textarea
+            name="message"
+            id="message"
+            rows="10"
+            placeholder="Message"
+          ></textarea>
+          <button class="mt-3 ">Bize Ulas</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% load static  %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+<div class="container">
+    <form action="" method='POST' class="login_form m-auto w-50">
+        {% csrf_token %}
+        <label for="">Kullanıcı Adı:</label>
+        <input type="text" name="kullanici" id="" class="form-control">
+        <label class="mt-2">Şifre:</label>
+        <input type="password" name="sifre" id="" class="form-control">
+        <input type="submit" value="Giriş Yap" class="btn btn-primary mt-3" >
+        
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,79 @@
+body {
+    background: url(../img/arka.png);
+    /* background-size: cover; */
+    /* background-position: center; */
+}
+
+#register_form {
+    background-color: rgb(241, 225, 201);
+    border: 1px solid gray !important;
+    border-radius: 15px !important;
+}
+
+img {
+    width: 100%;
+    border-radius: 20px;
+}
+.login_form {
+    border: 1px solid grey !important;
+    border-radius: 15px !important;
+    background-color: rgb(241, 225, 201);
+    padding: 20px;
+    margin-top: 150px !important;
+}
+.card {
+    margin-top: 25px;
+    background-color:cadetblue;
+    color: aliceblue;
+}
+.navbar .navbar-brand{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.navbar .navbar-brand img {
+    width: 60px;
+}
+.navbar {
+    background-color: rgb(245, 189, 122);
+    color: black;
+    font-weight: bold;
+}
+.navbar-nav li a {
+    transition: 0.7s;
+}
+.navbar-nav li a:hover {
+    background-color: blanchedalmond;
+}
+
+/* BASKET */
+
+.ode {
+    width: 150px;
+    padding: 10px;
+
+}
+.ode>a {
+    color: white !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+.basket>.col-12 {
+    background-color: rgb(241, 225, 201);
+
+    border-radius: 20px;
+}
+.basket img {
+    border-radius: 20px;
+}
+
+/* Kurslar */
+.kurs {
+    margin-left: 150px;
+}
+
+.esle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

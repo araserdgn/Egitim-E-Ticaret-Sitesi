@@ -1,0 +1,75 @@
+{% load static  %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css_files %}
+  
+  <nav class="navbar navbar-expand-lg ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}"><img src="https://www.bilimkurgukulubu.com/wp-content/uploads/2018/07/uzaktan-egitim-kapak.png" alt="eksik"></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'kurslar' %}">Kurslar</a>
+            </li>
+          
+
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link text-uppercase" href="">{{request.user}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase" href="{% url 'basket' %}">Sepet ({{request.user.basket_set.all.count}})</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Çıkış Yap</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">İletişim</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Giriş Yap</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Kayıt Ol</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">İletişim</a>
+              </li>
+            {% endif %}
+
+
+
+          {% comment %} ACTİON => yönlendirme saglar {% endcomment %}
+          </ul>
+          <form class="d-flex" action="/" method="GET" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              name="search"
+              placeholder="Search"
+              aria-label="Search"
+              value="{{search}}"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+  </nav>

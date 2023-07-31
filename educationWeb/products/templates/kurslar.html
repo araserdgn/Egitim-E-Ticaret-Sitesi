@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css_files %} 
+
+{% block content %}
+    
+    <div class="container-fluid mt-5 mb-5 kurs">
+        <div class="row m-auto">
+              {% for urun in products  %}
+                  <div class="card me-5 " style="width: 18rem;">
+                      <img src="{{urun.image.url}}" width="250" height="250" class="card-img-top" alt="{{urun.name}}">
+                      <div class="card-body">
+                          <h5 class="card-title">{{urun.name}}</h5>
+                          <p class="card-text">{{urun.description|safe|slice:"100"}}</p>
+                          <p class="card-text">Ürün fiyatı: {{urun.price}}$</p>
+                          <a href="{% url 'detail' urun.id %}" class="btn btn-primary">Kurs İçeriğine Bak</a>
+                                <form action="" method='POST'>
+                                  {% csrf_token %}
+                                  {% comment %} HİDDEN BİZE SEPET EKLEME KONUSUNDA YARDI MEDER {% endcomment %}
+                                  <input type="hidden" name="urunId" value="{{urun.id}}">
+                                  <input type="number" name="adet" value="1" class="form-control mt-2">
+                                  <input type="submit" value="Sepete Ekle" class="btn btn-danger mt-2">
+                                </form>
+                      </div>
+                  </div>
+              {% endfor %}
+        </div>
+    </div>
+      
+{% endblock content %}

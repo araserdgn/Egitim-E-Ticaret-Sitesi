@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-
+from django.contrib.auth.decorators import login_required # GİRİŞLİ OLMADAN SAYFALARA GEÇMEYİ ENGELLEYEN METHOD
 #!
 from .models import *
 from django.db.models import Q  # AND OR kullanmamızı saglar.
@@ -175,10 +175,10 @@ def result(request):
 
 
 def success(request):
-    odeme = Odeme.objects.get(ekleyen=request.user,odendiMi=False)
+    odeme = Odeme.objects.get(user=request.user,odendiMi=False)
     odeme.odendiMi=True
     odeme.save()
-    basket=Basket.objects.filter(user=request.user,odendiMi=False)
+    basket=Basket.objects.filter(ekleyen=request.user,odendiMi=False)
     for baskt in basket:
         baskt.odendiMi=True
         baskt.save()
@@ -237,6 +237,7 @@ def product(request,productId):
     }
     return render(request, 'detail.html',context)
 
+@login_required(login_url="login")
 def kurs(request):
     products=Products.objects.all()
     if request.method=='POST':
@@ -266,18 +267,52 @@ def kurs(request):
     }
     return render(request,'kurslar.html',context)
 
+
 def baslik(request, mainName):
-        category = Category.objects.filter(name=mainName).first()  # Eşleşen kategoriyi al veya None döndür
-        if category:
-            products = Products.objects.filter(category=category)  # Kategoriye göre ürünleri filtrele
+    products = Products.objects.filter(category__name=mainName)
+    category = Category.objects.all()
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            urunId = request.POST.get('urunId')
+            adet = request.POST.get('adet')
+
+            if urunId and adet:
+                try:
+                    myProduct = Products.objects.get(id=urunId)
+                    adet = int(adet)
+
+                    if Basket.objects.filter(ekleyen=request.user, product=myProduct, odendiMi=False).exists():
+                        basket = Basket.objects.get(ekleyen=request.user, product=myProduct, odendiMi=False)
+                        basket.adet += adet
+                        # basket.total = myProduct.price * basket.adet
+                        basket.save()
+                    else:
+                        basket = Basket.objects.create(
+                            ekleyen=request.user,
+                            product=myProduct,
+                            adet=adet,
+                            total=myProduct.price * adet
+                        )
+                        basket.save()
+
+                    messages.success(request, 'Ürün sepete eklendi.')
+                except Products.DoesNotExist:
+                    messages.error(request, 'Geçersiz ürün ID\'si.')
+            else:
+                messages.warning(request, 'Geçersiz istek.')
         else:
-            products = None  # Eşleşen kategori yoksa products'u None olarak ayarla
-            
-        context = {
-            'malzemeler': products,
-            'main':category
-        }
-        return render(request, 'main.html', context)
+            messages.warning(request, 'Girişli Değilsin, Giriş Yap')
+            return redirect('login')
+    context = {
+    'malzemeler': products,
+    'main': category,
+    'secilen': mainName
+    }
+
+
+    return render(request, 'main.html', context)
+
 
 
 def basket(request):
@@ -320,7 +355,7 @@ def basket(request):
     }
     return render(request, 'basket.html',context)
 
-
+@login_required(login_url="login")
 def contact(request):
     return render(request,"contact.html")
 
